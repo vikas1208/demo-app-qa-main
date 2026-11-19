@@ -39,3 +39,9 @@
 - Rebuilt the UI image after regenerating `src/lib/api/generated`.
 - Configured Playwright serial execution to avoid Keycloak brute-force lockouts on shared test credentials.
 - Confirmed claimant claim creation returns HTTP 201 and subsequent claim list requests return HTTP 200.
+
+### Contract testing
+
+- Added a Pact V4 consumer test for `BFFService -> ClaimsService GET /api/claims`.
+- Kept provider verification out of the green suite because it requires seeded provider state and valid authentication.
+- The generated pact is committed alongside the test for provider-side verification when state setup is available.

@@ -58,3 +58,9 @@
 - Tests run serially because shared Keycloak test accounts may trigger brute-force protection under parallel login attempts.
 - The UI Docker image must include regenerated TypeScript API client files under `src/lib/api/generated`.
 - Browser navigation from `My Claims` to `Submit New Claim` was also exercised manually and should be investigated as a UI/route issue if it remains unreliable outside direct route navigation.
+
+## Contract testing
+
+- A Pact consumer test covers `BFFService -> ClaimsService GET /api/claims`.
+- The generated pact is stored under `code/bff-service/pacts/BFFService-default.json`.
+- Provider verification remains pending because it requires seeded submitted claims and valid provider authentication/state setup.

@@ -1,0 +1,120 @@
+{
+  "consumer": {
+    "name": "BFFService"
+  },
+  "interactions": [
+    {
+      "comments": {
+        "testname": "com.example.demo.contract.ClaimsServicePactConsumerTest.should_list_claims_from_claims_service(MockServer)",
+        "text": [
+
+        ]
+      },
+      "description": "a request to list claims",
+      "key": "c014db1c",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a claimant with submitted claims"
+        }
+      ],
+      "request": {
+        "headers": {
+          "Authorization": [
+            "Bearer user-jwt"
+          ]
+        },
+        "method": "GET",
+        "path": "/api/claims"
+      },
+      "response": {
+        "body": {
+          "content": [
+            {
+              "claimAmount": 2500.0,
+              "claimId": "660e8400-e29b-41d4-a716-446655440001",
+              "createdAt": "2026-11-19T10:15:30Z",
+              "description": "Vehicle accident",
+              "incidentDate": "2026-11-18",
+              "status": "SUBMITTED"
+            }
+          ],
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$[0].claimAmount": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "number"
+                }
+              ]
+            },
+            "$[0].claimId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                }
+              ]
+            },
+            "$[0].createdAt": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$[0].description": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$[0].incidentDate": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$[0].status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "transport": "https",
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pact-jvm": {
+      "version": "4.6.3"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "default"
+  }
+}
