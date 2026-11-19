@@ -34,7 +34,6 @@ class KafkaDomainEventPublisherTest {
     @Mock
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    @Mock
     private ObjectMapper objectMapper;
 
     @Mock
@@ -44,6 +43,8 @@ class KafkaDomainEventPublisherTest {
 
     @BeforeEach
     void setUp() {
+        objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
         publisher = new KafkaDomainEventPublisher(kafkaTemplate, objectMapper, schemaValidator);
     }
 

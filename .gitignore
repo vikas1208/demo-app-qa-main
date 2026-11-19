@@ -32,3 +32,10 @@ venv/
 
 # MyPy
 .mypy_cache/
+
+# Java build outputs
+**/target/
+
+# Frontend dependencies and generated build output
+**/node_modules/
+**/.next/
