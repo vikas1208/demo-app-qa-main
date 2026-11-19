@@ -13,10 +13,12 @@ import io.micrometer.core.instrument.MeterRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -53,6 +55,7 @@ class CreateClaimUseCaseTest {
     void setUp() {
         // Stub MeterRegistry to return a mock Counter (lenient to avoid UnnecessaryStubbingException)
         lenient().when(meterRegistry.counter(anyString(), any(String[].class))).thenReturn(mockCounter);
+        ReflectionTestUtils.setField(useCase, "cdcEnabled", false);
     }
 
     @Test
@@ -110,11 +113,14 @@ class CreateClaimUseCaseTest {
                 .withClaimAmount(new BigDecimal("2000.00"))
                 .toCommand();
 
+        ReflectionTestUtils.setField(useCase, "cdcEnabled", false);
+
         Claim result = useCase.execute(command);
 
-        assertThat(result.getDomainEvents()).isNotEmpty();
-        assertThat(result.getDomainEvents())
-                .anyMatch(event -> event.getClass().getSimpleName().equals("ClaimSubmitted"));
+        assertThat(result).isNotNull();
+        ArgumentCaptor<Object> eventCaptor = ArgumentCaptor.forClass(Object.class);
+        verify(eventPublisher).publishEvent(eventCaptor.capture());
+        assertThat(eventCaptor.getValue().getClass().getSimpleName()).isEqualTo("ClaimSubmitted");
     }
 
     @Test
