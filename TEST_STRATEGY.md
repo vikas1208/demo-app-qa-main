@@ -64,3 +64,12 @@
 - A Pact consumer test covers `BFFService -> ClaimsService GET /api/claims`.
 - The generated pact is stored under `code/bff-service/pacts/BFFService-default.json`.
 - Provider verification remains pending because it requires seeded submitted claims and valid provider authentication/state setup.
+
+## Final verification status
+
+- Claims Service: 197 tests passed.
+- BFF Service: 214 tests passed.
+- Frontend Vitest: 25 test files passed.
+- Playwright Chromium: 4 E2E tests passed serially.
+- Consumer and provider contract verification are implemented for `GET /api/claims`.
+- Normal JWT security is excluded under the `contract-test` profile; the contract-test security chain supplies test authentication.

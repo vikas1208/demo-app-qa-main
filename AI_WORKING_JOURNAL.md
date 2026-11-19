@@ -45,3 +45,12 @@
 - Added a Pact V4 consumer test for `BFFService -> ClaimsService GET /api/claims`.
 - Kept provider verification out of the green suite because it requires seeded provider state and valid authentication.
 - The generated pact is committed alongside the test for provider-side verification when state setup is available.
+
+### Final verification
+
+- Fixed separate JWT and contract-test security chains by excluding normal JWT security in `contract-test` profile.
+- Added H2 provider-state seed and HTTP contract verification for `GET /api/claims`.
+- Final Claims Service suite: 197 passed.
+- Final BFF suite: 214 passed.
+- Final Vitest suite: 25 files passed.
+- Final Playwright suite: 4 Chromium tests passed.

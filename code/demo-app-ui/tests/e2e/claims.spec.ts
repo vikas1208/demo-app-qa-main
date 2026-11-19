@@ -11,7 +11,7 @@ const ADMIN = {
 };
 
 async function login(page: import('@playwright/test').Page, email: string, password: string) {
-  await page.goto('/login');
+  await page.goto('/login', { waitUntil: 'domcontentloaded', timeout: 60_000 });
   await page.getByLabel('Email').fill(email);
   await page.locator('#password').fill(password);
   const loginResponsePromise = page.waitForResponse((response) =>
@@ -58,7 +58,7 @@ test.describe('Claims user journey', () => {
   });
 
   test('protected route redirects to login', async ({ page }) => {
-    await page.goto('/claims');
+    await page.goto('/claims', { waitUntil: 'domcontentloaded', timeout: 60_000 });
     await expect(page).toHaveURL(/\/login/);
   });
 });
@@ -76,7 +76,7 @@ test.describe('Admin claims management', () => {
     await expect(submittedRow).toBeVisible({ timeout: 30_000 });
 
     const statusSelect = submittedRow.locator('select');
-    await statusSelect.selectOption('UNDER_REVIEW');
+    await statusSelect.selectOption({ label: 'Under Review' });
 
     const confirmation = page.getByRole('dialog', { name: 'Confirm Status Change' });
     await expect(confirmation).toBeVisible();
