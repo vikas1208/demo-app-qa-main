@@ -51,3 +51,10 @@
 - Claims and BFF OpenAPI generation works outside the protected folder.
 - Some existing tests contain stale constructor dependencies and mock assumptions.
 - Several frontend suites depend on generated API files and will fail unless `npm run generate:api` is run first.
+
+## End-to-end coverage
+
+- Playwright Chromium tests cover claimant login, valid claim submission, invalid login, protected-route redirect, and admin status updates.
+- Tests run serially because shared Keycloak test accounts may trigger brute-force protection under parallel login attempts.
+- The UI Docker image must include regenerated TypeScript API client files under `src/lib/api/generated`.
+- Browser navigation from `My Claims` to `Submit New Claim` was also exercised manually and should be investigated as a UI/route issue if it remains unreliable outside direct route navigation.

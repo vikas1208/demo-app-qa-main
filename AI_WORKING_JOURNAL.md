@@ -31,3 +31,11 @@
 - Verify remaining Claims test fixture setup and domain-event expectations.
 - Fix remaining wizard test failures based on actual validation timing and accessibility behavior.
 - Add a committed test execution script or package script for repeatable local runs.
+
+### Playwright verification
+
+- Added Chromium E2E coverage for claimant login/submission, invalid login, protected routes, and admin status updates.
+- Discovered the UI Docker build could omit generated API client files, causing Next.js module-not-found overlays.
+- Rebuilt the UI image after regenerating `src/lib/api/generated`.
+- Configured Playwright serial execution to avoid Keycloak brute-force lockouts on shared test credentials.
+- Confirmed claimant claim creation returns HTTP 201 and subsequent claim list requests return HTTP 200.
